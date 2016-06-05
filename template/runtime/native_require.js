@@ -8,8 +8,20 @@ var game_file_list = [
 	"libs/modules/game/game.native.js",
 	"libs/modules/tween/tween.js",
 	"libs/modules/res/res.js",
+	"bin-debug/enum/bulletType.js",
+	"bin-debug/conf.js",
+	"bin-debug/enum/dragonDirection.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
+	"bin-debug/model/armor.js",
+	"bin-debug/model/bullet.js",
+	"bin-debug/model/bulletLevel.js",
+	"bin-debug/model/dragon.js",
+	"bin-debug/model/fighter.js",
+	"bin-debug/model/gameMgr.js",
+	"bin-debug/model/mainFighter.js",
+	"bin-debug/model/speed.js",
+	"bin-debug/sprites/mainFighterSp.js",
 	//----auto game_file_list end----
 ];
 
@@ -38,10 +50,10 @@ egret_native.egretStart = function () {
         //以下为自动修改，请勿修改
         //----auto option start----
 		entryClassName: "Main",
-		frameRate: 30,
-		scaleMode: "showAll",
-		contentWidth: 640,
-		contentHeight: 1136,
+		frameRate: 60,
+		scaleMode: "noBorder",
+		contentWidth: 480,
+		contentHeight: 800,
 		showPaintRect: false,
 		showFPS: false,
 		fpsStyles: "x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9",
