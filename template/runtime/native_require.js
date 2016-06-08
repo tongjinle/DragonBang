@@ -20,6 +20,7 @@ var game_file_list = [
 	"bin-debug/model/fighter.js",
 	"bin-debug/model/gameMgr.js",
 	"bin-debug/model/mainFighter.js",
+	"bin-debug/model/recordMgr.js",
 	"bin-debug/model/speed.js",
 	"bin-debug/sprites/mainFighterSp.js",
 	"bin-debug/test/bulletSpec.js",
