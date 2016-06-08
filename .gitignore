@@ -1,1 +1,4 @@
 bin-debug/
+libs/jasmine-core/
+libs/underscore/
+test/
