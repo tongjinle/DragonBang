@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 			main:{
 				files:{
 					'test/enum.js':['bin-debug/enum/*.js'],
-					'test/conf.js':['bin-debug/conf/*.js'],
+					'test/conf.js':['bin-debug/conf.js'],
 					'test/model.js':['bin-debug/model/*.js']
 				}
 			}

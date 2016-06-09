@@ -19,6 +19,8 @@ class Bullet {
 	public get isAlive(): boolean {
 		return this._hp != 0;
 	}
+	
+	
 
 	// position
 	x: number;
@@ -29,6 +31,9 @@ class Bullet {
 		var speed = this.speed;
 		this.x += speed.x;
 		this.y += speed.y;
+		
+		GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_MOVE,this);
+	
 	}
 
 	// 被击中

@@ -1,4 +1,3 @@
-/// <reference path="./enum/bulletType.ts" />
 module DragonConfig {
 	//////////////////////////////////////////////////////
 	// ARMOR
@@ -29,7 +28,7 @@ module DragonConfig {
 	//////////////////////////////////////////////////////
 	// BULLET
 	//////////////////////////////////////////////////////
-	export module BULLET {
+	export module BULLET   {
 		// '类型'与'基础速度和基础威力'之间的对应关系
 
 		export var BASE: { [index: number]: { speed: number, power: number } } = {
@@ -64,13 +63,18 @@ module DragonConfig {
 	// EVENTNAME LIST
 	//////////////////////////////////////////////////////
 	export module EVENT_NAME {
-		// 子弹等级变化
-		export var BUTTLE_LEVEL_CHANGED = 'bulletLevel.changed';
 		// 飞机死亡
 		export var FIGHTER_DEAD = 'fighter.dead';
 		// 龙仔死亡
 		export var DRAGON_DEAD = 'dragon.dead';
+
+		// 子弹等级变化
+		export var BUTTLE_LEVEL_CHANGED = 'bulletLevel.changed';
 		// 子弹死亡
 		export var BUTTLE_DEAD = 'buttle.dead';
+		// 子弹超出视口
+		export var BUTTLE_OUTVIEWPORT = 'buttle_outviewport';
+		// 子弹移动
+		export var BUTTLE_MOVE = 'buttle_move';
 	}
 }
