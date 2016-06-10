@@ -28,18 +28,24 @@ module DragonConfig {
 	//////////////////////////////////////////////////////
 	// BULLET
 	//////////////////////////////////////////////////////
-	export module BULLET   {
+	export module BULLET {
 		// '类型'与'基础速度和基础威力'之间的对应关系
 
-		export var BASE: { [index: number]: { speed: number, power: number } } = {
+		export var BASE: { [index: number]: { speed: number, power: number, cooldown: number } } = {
 			[BulletType.normal]: {
 				speed: 50,
-				power: 20
+				power: 20,
+				// 基础子弹冷却时间
+				// 单位为ms
+				// 解释:每500ms,可以发射一颗子弹
+				// 当speedLevel为等级1的时候,则冷却加速1.2倍.当过去10ms,则认为是冷却了10*1.2=12ms
+				cooldown: 500
 			}
 		}
 
 		// '等级'与'速度加成百分比'之间的对应关系
 		export var SPEED = {
+			[0]: 1,
 			[1]: 1.2,
 			[2]: 1.4,
 			[3]: 1.8
@@ -47,10 +53,21 @@ module DragonConfig {
 
 		// '等级'与'威力加成百分比'之间的对应关系
 		export var POWER = {
+			[0]: 1,
 			[1]: 1.2,
 			[2]: 1.4,
 			[3]: 2
 		};
+
+		// '等级'与'冷却加成百分比'之间的对应关系
+		export var COOLDOWN = {
+			[0]: 1,
+			[1]: 1.2,
+			[2]: 1.4,
+			[3]: 1.8
+		};
+
+
 
 		// 每一关最大保存的速度加成等级数
 		export var SAVED_SPEED_MAX = 2;
@@ -73,8 +90,13 @@ module DragonConfig {
 		// 子弹死亡
 		export var BUTTLE_DEAD = 'buttle.dead';
 		// 子弹超出视口
-		export var BUTTLE_OUTVIEWPORT = 'buttle_outviewport';
+		export var BUTTLE_OUTVIEWPORT = 'buttle.outviewport';
 		// 子弹移动
-		export var BUTTLE_MOVE = 'buttle_move';
+		export var BUTTLE_MOVE = 'buttle.move';
+		// 子弹冷却
+		export var BUTTLE_COOLDOWN = 'buttle.cooldown';
+		// 子弹冷却完成
+		export var BUTTLE_COOLDOWN_AFTER = 'buttle.cooldown.after';
+
 	}
 }

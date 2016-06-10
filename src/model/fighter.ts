@@ -23,6 +23,7 @@ abstract class Fighter {
 	// bullet level
 	bulletLevel: BulletLevel;
 
+
 	// speed
 	speed: Speed;
 
@@ -44,8 +45,10 @@ abstract class Fighter {
 	}
 
 	// 射击
-	shot() {
-		// to do
+	shot():Bullet {
+		var bullet = new Bullet(this.x, this.y, this.bulletLevel.power, this.bulletLevel.speed);
+		this.bulletLevel.shot();
+		return bullet;
 	}
 
 	// 被击中
@@ -58,6 +61,29 @@ abstract class Fighter {
 
 		// 扣去生命值
 		this.hp -= damage;
+	}
+
+	dead(){
+		this.destory();
+	}
+
+
+	bindListener(){
+
+	}
+
+	unbindListener(){
+
+	}
+
+	destory(){
+		this.unbindListener();
+		this.bulletLevel.destory();
+	}
+
+
+	constructor(){
+		this.bindListener();
 	}
 
 }

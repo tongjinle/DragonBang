@@ -9,8 +9,7 @@ class BulletLevel {
 
 		var ratio: number;
 		ratio = DragonConfig.BULLET.SPEED[this._speedLevel];
-		this.speed.x = this.baseSpeed.x * ratio;
-		this.speed.y = this.baseSpeed.y * ratio;
+		this.speed.abs = this.baseSpeed.abs * ratio;
 
 		GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_LEVEL_CHANGED, this);
 	}
@@ -31,6 +30,31 @@ class BulletLevel {
 	}
 
 
+	// 子弹 冷却等级
+	private _coolDownLevel: number;
+	public get coolDownLevel(): number {
+		return this._coolDownLevel;
+	}
+	public set coolDownLevel(v: number) {
+		this._coolDownLevel = v;
+		this.cooldownRatio = DragonConfig.BULLET.COOLDOWN[this._coolDownLevel];
+	}
+	// 子弹 冷却比例
+	private cooldownRatio: number;
+	// 子弹 基础冷却时间
+	baseCooldown: number;
+	// 子弹 当前冷却时间
+	private _cooldown: number;
+	public get cooldown(): number {
+		return this._cooldown;
+	}
+	public set cooldown(v: number) {
+		this._cooldown = Math.max(0, v);
+		if (this._cooldown == 0) {
+			GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_COOLDOWN_AFTER, this);
+		}
+	}
+
 	// 子弹 基础速度
 	baseSpeed: Speed;
 	// 子弹 当前速度
@@ -46,8 +70,45 @@ class BulletLevel {
 		var conf = DragonConfig.BULLET.BASE[bulletType];
 
 		this.baseSpeed = new Speed();
+		this.speed = new Speed();
 		this.baseSpeed.abs = conf.speed;
+		this.speedLevel = 0;
 
 		this.basePower = conf.power;
+		this.powerLevel = 0;
+
+		this.baseCooldown = conf.cooldown;
+		this.cooldown = 0;
+		this.coolDownLevel = 0;
+
+		this.bindListener();
+	}
+
+	// 是否能发射
+	public get canShot(): boolean {
+		return this.cooldown == 0;
+	}
+
+	// 发射
+	shot(): void {
+		this.cooldown = this.baseCooldown;
+	}
+
+	// 子弹冷却事件
+	private _onButtleCoolDown(e) {
+		var dt: number = e.data;
+		this.cooldown -= Math.round(dt * this.cooldownRatio);
+	}
+
+	bindListener() {
+		GameMgr.getInstance().addEventListener(DragonConfig.EVENT_NAME.BUTTLE_COOLDOWN, this._onButtleCoolDown, this);
+	}
+
+	unbindListener() {
+		GameMgr.getInstance().removeEventListener(DragonConfig.EVENT_NAME.BUTTLE_COOLDOWN, this._onButtleCoolDown, this, false);
+	}
+
+	destory() {
+		this.unbindListener()
 	}
 }

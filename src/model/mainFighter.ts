@@ -15,6 +15,9 @@ class MainFighter extends Fighter {
 		this._energy = Math.max(Math.min(v, DragonConfig.ENERGY.INTERVAL['max']), DragonConfig.ENERGY.INTERVAL['min']);
 	}
 
+	// 是否有兴奋剂
+	isHot: boolean;
+
 
 
 
@@ -65,4 +68,5 @@ class MainFighter extends Fighter {
 
 		this.bulletLevel = new BulletLevel(BulletType.normal);
 	}
+
 }
