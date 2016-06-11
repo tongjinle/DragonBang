@@ -4,6 +4,10 @@
 describe('游戏信息记录器', () => {
     var mgr = RecordMgr.getInstance();
 
+    beforeEach(()=>{
+        mgr.init(true);
+    });
+
     afterAll(() => {
         mgr.init(true);
     });
@@ -23,11 +27,23 @@ describe('游戏信息记录器', () => {
 
     it('龙仔list', () => {
         // 读取list
-        expect(mgr.getDragonList()).toEqual([]);
+        expect(mgr.getDragonList()).toEqual({});
         // 新增龙仔
         mgr.addDragon('dragon1');
         mgr.addDragon('dragon2');
-        expect(mgr.getDragonList()).toEqual(['dragon1','dragon2']);
+        expect(mgr.getDragonList()).toEqual({ 'dragon1':true,'dragon2':true});
+
+        // 龙仔已经有了,且'活着'的状态,那么增加金币
+        expect(mgr.getCoin()).toBe(0);
+        mgr.addDragon('dragon1');
+        expect(mgr.getCoin()).toBe(100);
+
+        // 龙仔已经有了,但是'死亡'的状态,那么复活龙仔
+        mgr.setDragonStatus('dragon1', false);
+        expect(mgr.getDragonStatus('dragon1')).toBeFalsy();
+        mgr.addDragon('dragon1');
+        expect(mgr.getCoin()).toBe(100);
+        expect(mgr.getDragonStatus('dragon1')).toBeTruthy();
     });
 
     it('母舰子弹威力', () => {

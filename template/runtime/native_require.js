@@ -12,6 +12,7 @@ var game_file_list = [
 	"bin-debug/conf.js",
 	"bin-debug/enum/dragonDirection.js",
 	"bin-debug/enum/dragonEggType.js",
+	"bin-debug/enum/dragonType.js",
 	"bin-debug/interface/IDragonEgg.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
@@ -34,7 +35,7 @@ var game_file_list = [
 	"bin-debug/test/fighterSpec.js",
 	"bin-debug/test/gameMgrSpec.js",
 	"bin-debug/test/mainFighterSpec.js",
-	"bin-debug/test/recordSpec.js",
+	"bin-debug/test/recordMgrSpec.js",
 	"bin-debug/test/speedSpec.js",
 	"bin-debug/test/testSpec.js",
 	//----auto game_file_list end----

@@ -12,7 +12,7 @@ class RecordMgr {
 
 	init(isForce: boolean = false) {
 		if (isForce || egret.localStorage.getItem('hasInit') !== '1') {
-			egret.localStorage.setItem('dragonList', '[]');
+			egret.localStorage.setItem('dragonList', '{}');
 			egret.localStorage.setItem('bulletPowerLevel', '1');
 			egret.localStorage.setItem('bulletSpeedLevel', '1');
 			egret.localStorage.setItem('armorLevel', '1');
@@ -25,14 +25,43 @@ class RecordMgr {
 	}
 
 	// 读取龙仔列表
-	getDragonList(): string[] {
+	getDragonList(): {[dragonName:string]:boolean} {
 		return JSON.parse(egret.localStorage.getItem('dragonList'));
 	}
 
+	// 读取龙仔状态
+	getDragonStatus(dragonName: string) {
+		var dragonList = this.getDragonList();
+		if (dragonList[dragonName] === undefined) { return null; }
+
+		return dragonList[dragonName];
+	}
+
 	// 新增龙仔
+	// 如果龙仔没有,则新增
+	// 如果有了,活的情况下,增加金币100;死的情况下,复活龙仔
 	addDragon(dragonName: string): void {
 		var dragonList = this.getDragonList();
-		dragonList.push(dragonName);
+		var hasDragon = dragonList[dragonName];
+		if(hasDragon===undefined){
+			dragonList[dragonName] = true;
+		}else{
+			if(hasDragon){
+				this.setCoin(this.getCoin() + 100);
+			}else{
+				dragonList[dragonName] = true;
+			}
+		}
+		egret.localStorage.setItem('dragonList', JSON.stringify(dragonList));
+	}
+
+	// 记录龙仔状态
+	setDragonStatus(dragonName:string,status:boolean):void{
+		var dragonList = this.getDragonList();
+		if (dragonList[dragonName] === undefined) { return;}
+
+		dragonList[dragonName] = status;
+		
 		egret.localStorage.setItem('dragonList', JSON.stringify(dragonList));
 	}
 

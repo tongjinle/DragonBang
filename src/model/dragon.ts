@@ -5,7 +5,10 @@ class Dragon {
 
 	bulletLevel: BulletLevel;
 
-	constructor() {
+	type: DragonType;
+
+	constructor(type: DragonType) {
+		this.type = type;
 	}
 
 	shot() {
