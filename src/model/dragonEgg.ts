@@ -16,8 +16,22 @@ class DragonEgg {
 		return this._hp;
 	}
 	public set hp(v: number) {
-		this._hp = v;
+		this._hp = Math.max(0, v);
 	}
+
+
+	public get isAlive(): boolean {
+		return this.hp != 0;
+	}
+
+	// 速度
+	speed: Speed;
+
+	// 跟视口碰撞次数
+	// 超过碰撞次数,就消失于视口
+	popCount: number;
+
+
 	// 效果
 	effect: IEffect;
 
@@ -27,10 +41,64 @@ class DragonEgg {
 	constructor(type: DragonEggType, ext?: any) {
 		DragonEgg.initFactory();
 
+		this.bindListener();
+
+		this.hp = DragonConfig.DRAGONEGG.basicHp;
+		this.popCount = DragonConfig.DRAGONEGG.popCount;
 		this.type = type;
 		this.ext = ext;
+		this.speed = new Speed();
 		DragonEgg.factory[this.type](this);
 
+	}
+
+	beHit(fighter: Fighter, damage: number) {
+		// 生命削减
+		this.hp -= damage;
+		// 速度反转
+		this.speed.angle += 180;
+		this.speed.y *= -1;
+
+		if (!this.isAlive) {
+			GameMgr.getInstance().fire(DragonConfig.EVENTLIST.DRAGONEGG_BORN, {
+				fighter: fighter,
+				dragonEgg: this
+			});
+		}
+	}
+
+
+	bePop(isOutX: boolean, isOutY: boolean) {
+		if (this.popCount == 0) {
+			GameMgr.getInstance().fire(DragonConfig.EVENTLIST.DRAGONEGG_BEOUT,this);
+		} else {
+			if(!isOutX && !isOutY){
+				return;
+			}
+			if (isOutX) { this.speed.angle = 180 - this.speed.angle; }
+			if (isOutY) { this.speed.angle = -this.speed.angle; }
+			this.popCount--;
+			GameMgr.getInstance().fire(DragonConfig.EVENTLIST.DRAGONEGG_BEPOP,this);
+		}
+	}
+
+	// handlers
+	// private onBeHit(e: IDragonEggBeHitEvent) {
+	// 	this.speed.x *= -1;
+	// 	this.speed.y *= -1;
+	// }
+
+
+	private bindListener() {
+		// GameMgr.getInstance().addEventListener(DragonConfig.EVENT_NAME.DRAGONEGG_BEHIT, this.onBeHit, this);
+	}
+
+	private unbindListener() {
+		// GameMgr.getInstance().removeEventListener(DragonConfig.EVENT_NAME.DRAGONEGG_BEHIT, this.onBeHit, this);
+	}
+
+	destory() {
+		this.unbindListener();
 	}
 
 	static initFactory() {

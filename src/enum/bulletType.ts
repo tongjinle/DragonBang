@@ -1,1 +1,1 @@
-enum BulletType { normal }
+enum BulletType { normal, elite, boss }

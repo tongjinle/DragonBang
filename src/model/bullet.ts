@@ -12,7 +12,7 @@ class Bullet {
 		this._hp = v;
 		this._hp = Math.max(0, this._hp);
 		if (this._hp == 0) {
-			GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_DEAD, this);
+			GameMgr.getInstance().fire(DragonConfig.EVENTLIST.BUTTLE_DEAD, this);
 		}
 	}
 
@@ -32,7 +32,7 @@ class Bullet {
 		this.x += speed.x;
 		this.y += speed.y;
 		
-		GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_MOVE,this);
+		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.BUTTLE_MOVE,this);
 	
 	}
 

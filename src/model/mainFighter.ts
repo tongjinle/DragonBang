@@ -55,7 +55,7 @@ class MainFighter extends Fighter {
 
 	initListener(){
 		var mgr = GameMgr.getInstance();
-		mgr.addEventListener(DragonConfig.EVENT_NAME.BUTTLE_LEVEL_CHANGED, (buttleLevel) => {
+		mgr.addEventListener(DragonConfig.EVENTLIST.BUTTLE_LEVEL_CHANGED, (buttleLevel) => {
 			if(buttleLevel === this.bulletLevel){
 				this._resetDragonBulletLevel();
 			}

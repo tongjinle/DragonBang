@@ -32,14 +32,14 @@ describe('子弹', () => {
 		var onBullteMoveComplete = (e) => {
 			moveCount++;
 		};
-		GameMgr.getInstance().addEventListener(DragonConfig.EVENT_NAME.BUTTLE_MOVE, onBullteMoveComplete, bullet);
+		GameMgr.getInstance().addEventListener(DragonConfig.EVENTLIST.BUTTLE_MOVE, onBullteMoveComplete, bullet);
 		var height: number = 120;
 		bullet.move();
 		bullet.move();
 		expect(moveCount).toBe(2);
 		bullet.move();
 		expect(moveCount).toBe(3);
-		GameMgr.getInstance().removeEventListener(DragonConfig.EVENT_NAME.BUTTLE_MOVE, onBullteMoveComplete, bullet);
+		GameMgr.getInstance().removeEventListener(DragonConfig.EVENTLIST.BUTTLE_MOVE, onBullteMoveComplete, bullet);
 	});
 
 	it('生命和撞击', () => {

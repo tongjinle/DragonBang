@@ -11,7 +11,7 @@ class BulletLevel {
 		ratio = DragonConfig.BULLET.SPEED[this._speedLevel];
 		this.speed.abs = this.baseSpeed.abs * ratio;
 
-		GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_LEVEL_CHANGED, this);
+		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.BUTTLE_LEVEL_CHANGED, this);
 	}
 
 
@@ -26,7 +26,7 @@ class BulletLevel {
 		var ratio: number;
 		ratio = DragonConfig.BULLET.POWER[this._powerLevel];
 		this.power = this.basePower * ratio;
-		GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_LEVEL_CHANGED, this);
+		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.BUTTLE_LEVEL_CHANGED, this);
 	}
 
 
@@ -51,7 +51,7 @@ class BulletLevel {
 	public set cooldown(v: number) {
 		this._cooldown = Math.max(0, v);
 		if (this._cooldown == 0) {
-			GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_COOLDOWN_AFTER, this);
+			GameMgr.getInstance().fire(DragonConfig.EVENTLIST.BUTTLE_COOLDOWN_AFTER, this);
 		}
 	}
 
@@ -100,12 +100,12 @@ class BulletLevel {
 		this.cooldown -= Math.round(dt * this.cooldownRatio);
 	}
 
-	bindListener() {
-		GameMgr.getInstance().addEventListener(DragonConfig.EVENT_NAME.BUTTLE_COOLDOWN, this._onButtleCoolDown, this);
+	private bindListener() {
+		GameMgr.getInstance().addEventListener(DragonConfig.EVENTLIST.BUTTLE_COOLDOWN, this._onButtleCoolDown, this);
 	}
 
-	unbindListener() {
-		GameMgr.getInstance().removeEventListener(DragonConfig.EVENT_NAME.BUTTLE_COOLDOWN, this._onButtleCoolDown, this, false);
+	private unbindListener() {
+		GameMgr.getInstance().removeEventListener(DragonConfig.EVENTLIST.BUTTLE_COOLDOWN, this._onButtleCoolDown, this, false);
 	}
 
 	destory() {

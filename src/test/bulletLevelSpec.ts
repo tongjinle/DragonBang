@@ -40,11 +40,11 @@ describe('子弹等级', () => {
 		expect(bulletLevel.cooldown).toBe(bulletLevel.baseCooldown);
 
 		var dt: number = 20;
-		GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_COOLDOWN, dt);
+		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.BUTTLE_COOLDOWN, dt);
 		expect(bulletLevel.cooldown).toBe(bulletLevel.baseCooldown - 20);
 
 		bulletLevel.coolDownLevel = 1;
-		GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.BUTTLE_COOLDOWN, dt);
+		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.BUTTLE_COOLDOWN, dt);
 		expect(bulletLevel.cooldown).toBe(bulletLevel.baseCooldown - 20 - Math.round(20 * 1.2));
 	});
 

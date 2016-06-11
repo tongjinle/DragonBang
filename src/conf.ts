@@ -1,4 +1,19 @@
+/// <reference path="./enum/bulletType.ts" />
+
 module DragonConfig {
+	//////////////////////////////////////////////////////
+	// DRAGON EGG
+	//////////////////////////////////////////////////////
+	// 龙蛋
+	export module DRAGONEGG {
+		// 龙蛋血量
+		export var basicHp: number = 50;
+		
+		// 龙蛋跟视口碰撞次数
+		export var popCount :number =3;
+	}
+
+
 	//////////////////////////////////////////////////////
 	// ARMOR
 	//////////////////////////////////////////////////////
@@ -79,7 +94,7 @@ module DragonConfig {
 	//////////////////////////////////////////////////////
 	// EVENTNAME LIST
 	//////////////////////////////////////////////////////
-	export module EVENT_NAME {
+	export module EVENTLIST {
 		// 飞机死亡
 		export var FIGHTER_DEAD = 'fighter.dead';
 		// 龙仔死亡
@@ -97,6 +112,15 @@ module DragonConfig {
 		export var BUTTLE_COOLDOWN = 'buttle.cooldown';
 		// 子弹冷却完成
 		export var BUTTLE_COOLDOWN_AFTER = 'buttle.cooldown.after';
+
+		// 龙蛋 破壳
+		export var DRAGONEGG_BORN = 'dragonEgg.born';
+		// 龙蛋 被攻击
+		export var DRAGONEGG_BEHIT = 'dragonEgg.beHit';
+		// 龙蛋 撞到视口边缘
+		export var DRAGONEGG_BEPOP = 'dragonEgg.bePop';
+		// 龙蛋 超出视口
+		export var DRAGONEGG_BEOUT = 'dragonEgg.beOut';
 
 	}
 }

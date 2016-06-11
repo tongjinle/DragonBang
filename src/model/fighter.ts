@@ -10,7 +10,7 @@ abstract class Fighter {
 		// 最小为0
 		this._hp = Math.max(0, this._hp);
 
-		GameMgr.getInstance().fire(DragonConfig.EVENT_NAME.FIGHTER_DEAD, this);
+		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.FIGHTER_DEAD, this);
 	}
 
 

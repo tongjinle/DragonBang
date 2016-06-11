@@ -17,7 +17,7 @@ class Speed {
 		return this._angle;
 	}
 	public set angle(v: number) {
-		this._angle = v;
+		this._angle = (v + 360) % 360;
 		this.recal();
 	}
 
@@ -38,10 +38,16 @@ class Speed {
 	}
 
 	private recal() {
+		var format = (n: number): number => {
+			var flag = n > 0 ? 1 : -1;
+			var abs = Math.round(Math.abs(n));
+			return abs * flag;
+		};
 		var abs = this._abs;
 		var angle = this._angle;
-		this._y = Math.floor(Math.sin(angle / 180 * Math.PI) * abs);
-		this._x = Math.floor(Math.cos(angle / 180 * Math.PI) * abs);
+		var radian = angle / 180 * Math.PI;
+		this._y = format(Math.sin(radian) * abs);
+		this._x = format(Math.cos(radian) * abs);
 	}
 
 	constructor() {
