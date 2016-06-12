@@ -25,7 +25,7 @@ class RecordMgr {
 	}
 
 	// 读取龙仔列表
-	getDragonList(): {[dragonName:string]:DragonStatus} {
+	getDragonList(): {[type:number]:DragonStatus} {
 		return JSON.parse(egret.localStorage.getItem('dragonList'));
 	}
 
@@ -33,29 +33,29 @@ class RecordMgr {
 	// 新增龙仔
 	// 如果龙仔没有,则新增
 	// 如果有了,活的情况下,增加金币100;死的情况下,复活龙仔
-	addDragon(dragonName: string): void {
-		var status = this.getDragonStatus(dragonName);
+	addDragon(type: DragonType): void {
+		var status = this.getDragonStatus(type);
 		if(status == DragonStatus.alive){
 			this.setCoin(this.getCoin() + 100);
 		}else{
-			this.setDragonStatus(dragonName, DragonStatus.alive);
+			this.setDragonStatus(type, DragonStatus.alive);
 		}
 	}
 
 	// 读取龙仔状态
-	getDragonStatus(dragonName: string) {
+	getDragonStatus(type:DragonType) {
 		var dragonList = this.getDragonList();
-		if (dragonList[dragonName] === undefined) { return DragonStatus.notExist; }
-		return dragonList[dragonName];
+		if (dragonList[type] === undefined) { return DragonStatus.notExist; }
+		return dragonList[type];
 	}
 
 	// 记录龙仔状态
-	setDragonStatus(dragonName:string,status:DragonStatus):void{
+	setDragonStatus(type:DragonType,status:DragonStatus):void{
 		var dragonList = this.getDragonList();
 		if(status == DragonStatus.notExist){
-			delete dragonList[dragonName];
+			delete dragonList[type];
 		}else{
-			dragonList[dragonName] = status;
+			dragonList[type] = status;
 		}
 
 		egret.localStorage.setItem('dragonList', JSON.stringify(dragonList));

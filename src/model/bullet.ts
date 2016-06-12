@@ -1,4 +1,6 @@
 class Bullet {
+	color: armyColor;
+
 	power: number;
 
 	speed: Speed;

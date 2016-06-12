@@ -35,10 +35,14 @@ class Dragon {
 		}
 	}
 
+	public get isAlive() : boolean {
+		return this._hp != 0;
+	}
+
 
 	constructor(type: DragonType) {
 		this.type = type;
-		this.bulletLevel = new BulletLevel(0);
+		this.bulletLevel = new BulletLevel(BulletType.normal);
 		this.hp = DragonConfig.DRAGON.basicHp;
 
 		this.bindListener();
@@ -53,7 +57,13 @@ class Dragon {
 	}
 
 	dead(): void {
+		this._hp = 0;
+
 		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.DRAGON_DEAD, this);
+
+		// recordMgr记录死亡
+		RecordMgr.getInstance().setDragonStatus(this.type, DragonStatus.dead);
+
 		this.destory();
 	}
 

@@ -31,13 +31,13 @@ class BulletLevel {
 
 
 	// 子弹 冷却等级
-	private _coolDownLevel: number;
-	public get coolDownLevel(): number {
-		return this._coolDownLevel;
+	private _cooldownLevel: number;
+	public get cooldownLevel(): number {
+		return this._cooldownLevel;
 	}
-	public set coolDownLevel(v: number) {
-		this._coolDownLevel = v;
-		this.cooldownRatio = DragonConfig.BULLET.COOLDOWN[this._coolDownLevel];
+	public set cooldownLevel(v: number) {
+		this._cooldownLevel = v;
+		this.cooldownRatio = DragonConfig.BULLET.COOLDOWN[this._cooldownLevel];
 	}
 	// 子弹 冷却比例
 	private cooldownRatio: number;
@@ -79,7 +79,7 @@ class BulletLevel {
 
 		this.baseCooldown = conf.cooldown;
 		this.cooldown = 0;
-		this.coolDownLevel = 0;
+		this.cooldownLevel = 0;
 
 		this.bindListener();
 	}

@@ -1,0 +1,4 @@
+enum armyColor {
+	red,
+	black
+}

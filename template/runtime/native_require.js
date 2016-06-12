@@ -10,6 +10,7 @@ var game_file_list = [
 	"libs/modules/res/res.js",
 	"bin-debug/enum/bulletType.js",
 	"bin-debug/conf.js",
+	"bin-debug/enum/armyColor.js",
 	"bin-debug/enum/dragonDirection.js",
 	"bin-debug/enum/dragonEggType.js",
 	"bin-debug/enum/dragonStatus.js",

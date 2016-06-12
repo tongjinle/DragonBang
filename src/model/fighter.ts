@@ -1,5 +1,7 @@
 // 飞机抽象类
 abstract class Fighter {
+	// 阵营颜色
+	color: armyColor;
 	// hp
 	protected _hp: number;
 	public get hp(): number {
@@ -64,6 +66,7 @@ abstract class Fighter {
 	}
 
 	dead(){
+		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.FIGHTER_DEAD, this);
 		this.destory();
 	}
 

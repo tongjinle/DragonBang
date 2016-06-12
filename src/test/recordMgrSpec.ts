@@ -29,21 +29,21 @@ describe('游戏信息记录器', () => {
         // 读取list
         expect(mgr.getDragonList()).toEqual({});
         // 新增龙仔
-        mgr.addDragon('dragon1');
-        mgr.addDragon('dragon2');
-        expect(mgr.getDragonList()).toEqual({ 'dragon1':DragonStatus.alive,'dragon2':DragonStatus.alive});
+        mgr.addDragon(DragonType.puman);
+        mgr.addDragon(DragonType.badboy);
+        expect(mgr.getDragonList()).toEqual({ [DragonType.puman]:DragonStatus.alive,[DragonType.badboy]:DragonStatus.alive});
 
         // 龙仔已经有了,且'活着'的状态,那么增加金币
         expect(mgr.getCoin()).toBe(0);
-        mgr.addDragon('dragon1');
+        mgr.addDragon(DragonType.puman);
         expect(mgr.getCoin()).toBe(100);
 
         // 龙仔已经有了,但是'死亡'的状态,那么复活龙仔
-        mgr.setDragonStatus('dragon1', DragonStatus.dead);
-        expect(mgr.getDragonStatus('dragon1')).toBe(DragonStatus.dead);
-        mgr.addDragon('dragon1');
+        mgr.setDragonStatus(DragonType.puman, DragonStatus.dead);
+        expect(mgr.getDragonStatus(DragonType.puman)).toBe(DragonStatus.dead);
+        mgr.addDragon(DragonType.puman);
         expect(mgr.getCoin()).toBe(100);
-        expect(mgr.getDragonStatus('dragon1')).toBe(DragonStatus.alive);
+        expect(mgr.getDragonStatus(DragonType.puman)).toBe(DragonStatus.alive);
     });
 
     it('母舰子弹威力', () => {

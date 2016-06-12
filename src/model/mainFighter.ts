@@ -25,8 +25,9 @@ class MainFighter extends Fighter {
 	private _resetDragonBulletLevel() {
 		var bulletLevel = this.bulletLevel;
 		for (let dragon of this.dragons) {
-			dragon.bulletLevel.speedLevel = Math.max(1, bulletLevel.speedLevel);
-			dragon.bulletLevel.powerLevel = Math.max(1, bulletLevel.powerLevel);
+			dragon.bulletLevel.speedLevel = Math.max(0, bulletLevel.speedLevel - 1);
+			dragon.bulletLevel.powerLevel = Math.max(0, bulletLevel.powerLevel - 1);
+			dragon.bulletLevel.cooldownLevel = Math.max(0, bulletLevel.cooldownLevel - 1);
 		}
 	}
 
@@ -53,20 +54,38 @@ class MainFighter extends Fighter {
 		this._resetDragonBulletLevel();
 	}
 
-	initListener(){
-		var mgr = GameMgr.getInstance();
-		mgr.addEventListener(DragonConfig.EVENTLIST.BUTTLE_LEVEL_CHANGED, (buttleLevel) => {
-			if(buttleLevel === this.bulletLevel){
-				this._resetDragonBulletLevel();
+	private onBulletLevelChanged(e) {
+		var bulletLevel = e.data as BulletLevel;
+		if (this.bulletLevel === bulletLevel) {
+			this._resetDragonBulletLevel();
+		}
+	}
+
+	private onFighterDead(e) {
+		var fighter = e.data as Fighter;
+		if (fighter == this) {
+			for (let dragon of this.dragons) {
+				dragon.dead();
 			}
-		}, this);
+		}
+	}
+
+
+
+	bindListener() {
+		var mgr = GameMgr.getInstance();
+		mgr.addEventListener(DragonConfig.EVENTLIST.BUTTLE_LEVEL_CHANGED, this.onBulletLevelChanged, this);
+
+		mgr.addEventListener(DragonConfig.EVENTLIST.FIGHTER_DEAD, this.onFighterDead, this);
 	}
 
 
 	constructor() {
 		super();
-
+		this.dragons = [];
 		this.bulletLevel = new BulletLevel(BulletType.normal);
+
+		this.bindListener();
 	}
 
 }
