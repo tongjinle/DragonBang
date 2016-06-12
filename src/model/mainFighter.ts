@@ -31,7 +31,7 @@ class MainFighter extends Fighter {
 	}
 
 
-	boom(whichDragon: dragonDirection) {
+	boom(whichDragon: DragonDirection) {
 		var dragon = this.dragons[whichDragon];
 		if (!dragon) {
 			throw 'no such dragon';
@@ -48,7 +48,7 @@ class MainFighter extends Fighter {
 	transform() { }
 
 	// 增加龙仔
-	addDragon(dragon: Dragon, direction: dragonDirection) {
+	addDragon(dragon: Dragon, direction: DragonDirection) {
 		this.dragons[direction] = dragon;
 		this._resetDragonBulletLevel();
 	}

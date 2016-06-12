@@ -1,20 +1,74 @@
 // 龙仔
 class Dragon {
 	// 母舰
-	mother: MainFighter;
+	private _mother : MainFighter;
+	public get mother() : MainFighter {
+		return this._mother;
+	}
+	public set mother(v : MainFighter) {
+		var mother = this._mother = v;
+
+		this.bulletLevel.powerLevel = Math.max(0,mother.bulletLevel.powerLevel - 1);
+		this.bulletLevel.speedLevel = Math.max(0,mother.bulletLevel.speedLevel - 1);
+	}
 
 	bulletLevel: BulletLevel;
 
 	type: DragonType;
 
-	constructor(type: DragonType) {
-		this.type = type;
+
+	// 位置
+	x: number;
+	y: number;
+
+
+	// 生命
+	private _hp : number;
+	public get hp() : number {
+		return this._hp;
+	}
+	public set hp(v : number) {
+		this._hp = Math.max(0,v);
+
+		if(this._hp==0){
+			this.dead();
+		}
 	}
 
-	shot() {
 
+	constructor(type: DragonType) {
+		this.type = type;
+		this.bulletLevel = new BulletLevel(0);
+		this.hp = DragonConfig.DRAGON.basicHp;
+
+		this.bindListener();
+	}
+
+	shot(): Bullet {
+		var bullet = new Bullet(this.x, this.y, this.bulletLevel.power, this.bulletLevel.speed);
+		return bullet;
 	}
 
 	boom() {
+	}
+
+	dead(): void {
+		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.DRAGON_DEAD, this);
+		this.destory();
+	}
+
+	destory(): void {
+		this.unbindListener();
+	}
+
+	private onMotherMove():void{}
+
+	private bindListener(): void {
+		// 母舰的移动,会带动龙仔的移动
+	}
+
+
+	private unbindListener(): void {
+
 	}
 }

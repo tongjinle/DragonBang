@@ -12,7 +12,7 @@ class RecordMgr {
 
 	init(isForce: boolean = false) {
 		if (isForce || egret.localStorage.getItem('hasInit') !== '1') {
-			egret.localStorage.setItem('dragonList', '{}');
+			egret.localStorage.setItem('dragonList','{}' );
 			egret.localStorage.setItem('bulletPowerLevel', '1');
 			egret.localStorage.setItem('bulletSpeedLevel', '1');
 			egret.localStorage.setItem('armorLevel', '1');
@@ -25,43 +25,39 @@ class RecordMgr {
 	}
 
 	// 读取龙仔列表
-	getDragonList(): {[dragonName:string]:boolean} {
+	getDragonList(): {[dragonName:string]:DragonStatus} {
 		return JSON.parse(egret.localStorage.getItem('dragonList'));
+	}
+
+	
+	// 新增龙仔
+	// 如果龙仔没有,则新增
+	// 如果有了,活的情况下,增加金币100;死的情况下,复活龙仔
+	addDragon(dragonName: string): void {
+		var status = this.getDragonStatus(dragonName);
+		if(status == DragonStatus.alive){
+			this.setCoin(this.getCoin() + 100);
+		}else{
+			this.setDragonStatus(dragonName, DragonStatus.alive);
+		}
 	}
 
 	// 读取龙仔状态
 	getDragonStatus(dragonName: string) {
 		var dragonList = this.getDragonList();
-		if (dragonList[dragonName] === undefined) { return null; }
-
+		if (dragonList[dragonName] === undefined) { return DragonStatus.notExist; }
 		return dragonList[dragonName];
 	}
 
-	// 新增龙仔
-	// 如果龙仔没有,则新增
-	// 如果有了,活的情况下,增加金币100;死的情况下,复活龙仔
-	addDragon(dragonName: string): void {
-		var dragonList = this.getDragonList();
-		var hasDragon = dragonList[dragonName];
-		if(hasDragon===undefined){
-			dragonList[dragonName] = true;
-		}else{
-			if(hasDragon){
-				this.setCoin(this.getCoin() + 100);
-			}else{
-				dragonList[dragonName] = true;
-			}
-		}
-		egret.localStorage.setItem('dragonList', JSON.stringify(dragonList));
-	}
-
 	// 记录龙仔状态
-	setDragonStatus(dragonName:string,status:boolean):void{
+	setDragonStatus(dragonName:string,status:DragonStatus):void{
 		var dragonList = this.getDragonList();
-		if (dragonList[dragonName] === undefined) { return;}
+		if(status == DragonStatus.notExist){
+			delete dragonList[dragonName];
+		}else{
+			dragonList[dragonName] = status;
+		}
 
-		dragonList[dragonName] = status;
-		
 		egret.localStorage.setItem('dragonList', JSON.stringify(dragonList));
 	}
 

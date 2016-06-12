@@ -119,7 +119,7 @@ describe('龙蛋', () => {
 		recordMgr.init(true);
 		// 得到龙仔
 		eggList['dragon'].effect(fighter);
-		expect(recordMgr.getDragonStatus('puman')).toBeTruthy();
+		expect(recordMgr.getDragonStatus('puman')).toBe(DragonStatus.alive);
 		
 		// 医疗包
 		fighter.hp = 10;

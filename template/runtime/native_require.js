@@ -12,6 +12,7 @@ var game_file_list = [
 	"bin-debug/conf.js",
 	"bin-debug/enum/dragonDirection.js",
 	"bin-debug/enum/dragonEggType.js",
+	"bin-debug/enum/dragonStatus.js",
 	"bin-debug/enum/dragonType.js",
 	"bin-debug/interface/IDragonEgg.js",
 	"bin-debug/LoadingUI.js",

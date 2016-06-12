@@ -1,17 +1,24 @@
 /// <reference path="../../typings/tsd.d.ts"/>
 describe('龙仔', () => {
 	var dragon: Dragon;
+	var recMgr: RecordMgr = RecordMgr.getInstance();
 
 	beforeEach(()=>{
 		dragon = new Dragon(DragonType.puman);
 
 	});
 
-	it('生命', () => { 
+	afterEach(() => {
+		dragon.destory();
+	});
 
+	it('生命', () => { 
+		expect(dragon.hp).toBe(75);
 	});
 	it('死亡', () => {
 		// 死亡后,在record中应该有反应
+		dragon.dead();
+		expect(recMgr.getDragonStatus(dragon.type.toString())).toBeFalsy();
 	});
 	it('复活', () => {
 		// 复活后,在record中应该有反应

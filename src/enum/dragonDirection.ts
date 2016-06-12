@@ -1,1 +1,1 @@
-enum dragonDirection { left, right }
+enum DragonDirection { left, right }
