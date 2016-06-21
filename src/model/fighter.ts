@@ -11,8 +11,10 @@ abstract class Fighter {
 		this._hp = v;
 		// 最小为0
 		this._hp = Math.max(0, this._hp);
-
-		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.FIGHTER_DEAD, this);
+		
+		if(this._hp == 0){
+			this.dead();
+		}
 	}
 
 
@@ -49,6 +51,7 @@ abstract class Fighter {
 	// 射击
 	shot():Bullet {
 		var bullet = new Bullet(this.x, this.y, this.bulletLevel.power, this.bulletLevel.speed);
+		bullet.color = this.color;
 		this.bulletLevel.shot();
 		return bullet;
 	}
@@ -87,6 +90,12 @@ abstract class Fighter {
 
 	constructor(){
 		this.bindListener();
+		
+		this.x = 0;
+		this.y = 0;
+		this._hp = 1;
+		this.armor = new Armor(0);
+		this.bulletLevel = new BulletLevel(BulletType.normal); 
 	}
 
 }

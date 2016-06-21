@@ -106,7 +106,7 @@ describe('龙蛋', () => {
 
 	it('龙蛋效果', () => {
 		var eggList: { [index: string]: DragonEgg } = {
-			['dragon']: new DragonEgg(DragonEggType.dragon, { name: 'puman' }),
+			['dragon']: new DragonEgg(DragonEggType.dragon, { dragonType: DragonType.puman }),
 			['heal']: new DragonEgg(DragonEggType.heal),
 			['healMax']: new DragonEgg(DragonEggType.healMax),
 			['energy']: new DragonEgg(DragonEggType.energy),
@@ -119,7 +119,7 @@ describe('龙蛋', () => {
 		recordMgr.init(true);
 		// 得到龙仔
 		eggList['dragon'].effect(fighter);
-		expect(recordMgr.getDragonStatus('puman')).toBe(DragonStatus.alive);
+		expect(recordMgr.getDragonStatus(DragonType.puman)).toBe(DragonStatus.alive);
 		
 		// 医疗包
 		fighter.hp = 10;

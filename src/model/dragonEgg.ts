@@ -112,7 +112,7 @@ class DragonEgg {
 			// 如果母舰有空位,则把龙仔加载到母舰的空位上
 			// todo 
 			// 记录中增加新的龙仔名称
-			RecordMgr.getInstance().addDragon(egg.ext.name);
+			RecordMgr.getInstance().addDragon(egg.ext.dragonType);
 		};
 
 		// 能量
