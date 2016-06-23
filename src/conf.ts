@@ -107,8 +107,17 @@ module DragonConfig {
 	export module EVENTLIST {
 		// 飞机死亡
 		export var FIGHTER_DEAD = 'fighter.dead';
+		// 飞机发射子弹
+		export var FIGHTER_SHOT = 'fighter.shot';
+		// 飞机移动
+		export var FIGHTER_MOVE = 'fighter.move';
+
 		// 龙仔死亡
 		export var DRAGON_DEAD = 'dragon.dead';
+		// 龙仔发射子弹
+		export var DRAGON_SHOT = 'dragon.shot';
+		// 龙仔移动
+		export var DRAGON_MOVE = 'dragon.move';
 
 		// 子弹等级变化
 		export var BUTTLE_LEVEL_CHANGED = 'bulletLevel.changed';

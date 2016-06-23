@@ -5,6 +5,9 @@ class Bullet {
 
 	speed: Speed;
 
+	// 源头
+	source:any;
+
 	// hp
 	private _hp: number;
 	public get hp(): number {

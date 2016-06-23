@@ -51,7 +51,12 @@ abstract class Fighter {
 	// 射击
 	shot():Bullet {
 		var bullet = new Bullet(this.x, this.y, this.bulletLevel.power, this.bulletLevel.speed);
+		bullet.source = this;
 		bullet.color = this.color;
+
+		// 产生shot事件
+		GameMgr.getInstance().fire(DragonConfig.EVENTLIST.FIGHTER_SHOT,bullet);
+
 		this.bulletLevel.shot();
 		return bullet;
 	}
@@ -96,6 +101,7 @@ abstract class Fighter {
 		this._hp = 1;
 		this.armor = new Armor(0);
 		this.bulletLevel = new BulletLevel(BulletType.normal); 
+		this.speed = new Speed();
 	}
 
 }

@@ -15,6 +15,11 @@ class MainFighter extends Fighter {
 		this._energy = Math.max(Math.min(v, DragonConfig.ENERGY.INTERVAL['max']), DragonConfig.ENERGY.INTERVAL['min']);
 	}
 
+	// 能否使用技能(boom)
+	public get canBoom() : boolean {
+		return this._energy === DragonConfig.ENERGY.INTERVAL['max'];
+	}
+
 	// 是否有兴奋剂
 	isHot: boolean;
 
@@ -82,8 +87,10 @@ class MainFighter extends Fighter {
 
 	constructor() {
 		super();
+		
 		this.dragons = [];
 		this.bulletLevel = new BulletLevel(BulletType.normal);
+		this._energy = 0;
 
 		this.bindListener();
 	}

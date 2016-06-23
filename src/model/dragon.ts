@@ -71,14 +71,31 @@ class Dragon {
 		this.unbindListener();
 	}
 
-	private onMotherMove():void{}
+	private onMotherShot(e):void{
+		var motherBullet = e.data as Bullet;
+		var mf:MainFighter = motherBullet.source as MainFighter;
+		if(mf === this._mother){
+			var dragonBullet:Bullet = this.shot();
+			GameMgr.getInstance().fire(DragonConfig.EVENTLIST.DRAGON_SHOT,dragonBullet);
+		}
+	}
+
+	private onMotherMove(e):void{
+
+	}
 
 	private bindListener(): void {
+		// 母舰的shot,会带动龙仔的shot
+		GameMgr.getInstance().addEventListener(DragonConfig.EVENTLIST.FIGHTER_SHOT,this.onMotherShot,this);
+
 		// 母舰的移动,会带动龙仔的移动
+		GameMgr.getInstance().addEventListener(DragonConfig.EVENTLIST.FIGHTER_MOVE,this.onMotherMove,this);
 	}
 
 
 	private unbindListener(): void {
-
+		GameMgr.getInstance().removeEventListener(DragonConfig.EVENTLIST.FIGHTER_SHOT,this.onMotherShot,this);
+		GameMgr.getInstance().removeEventListener(DragonConfig.EVENTLIST.FIGHTER_MOVE,this.onMotherMove,this);
+		
 	}
 }
